@@ -38,7 +38,8 @@ Citizens who report garbage dumping, burning waste, polluted lakes or sewage ove
 ## Tech stack
 - Google AI Studio and the Gemini API: photo analysis, complaint writing, before/after verification
 - ElevenLabs (`eleven_multilingual_v2`): text-to-speech
-- React, TypeScript, Vite, Tailwind CSS
+- React, TypeScript, Vite, Tailwind CSS (frontend)
+- Node.js and Express (backend server for the Gemini and ElevenLabs calls)
 - Firebase (Firestore)
 - Leaflet: incident map
 
