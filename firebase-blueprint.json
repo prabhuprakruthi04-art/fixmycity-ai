@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with push notification preferences and metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique Firebase Auth UID" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User full name" },
+        "notificationsOptIn": { "type": "boolean", "description": "Whether user opted in to push notifications" },
+        "createdAt": { "type": "string", "description": "Account creation timestamp" }
+      },
+      "required": ["id", "email"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "Civic grievance report with AI analysis, SLA tracking, and resolution proof",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Report ID" },
+        "userId": { "type": "string", "description": "Owner user UID or anonymous/sample" },
+        "problemType": { "type": "string" },
+        "severity": { "type": "string", "enum": ["Low", "Medium", "High", "Critical"] },
+        "description": { "type": "string" },
+        "likelyCause": { "type": "string" },
+        "healthOrEnvironmentalRisk": { "type": "string" },
+        "responsibleAuthority": { "type": "string" },
+        "formalComplaint": { "type": "string" },
+        "suggestedDeadlineDays": { "type": "number" },
+        "location": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "dateFiled": { "type": "string" },
+        "simulatedDaysPassed": { "type": "number" },
+        "status": { "type": "string", "enum": ["Filed", "Reminder Sent", "Escalated", "Resolved", "Not Actually Fixed"] },
+        "language": { "type": "string" }
+      },
+      "required": ["id", "problemType", "severity", "status", "location"]
+    },
+    "PushNotification": {
+      "title": "PushNotification",
+      "description": "In-app and browser push notification item for status updates and escalations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "reportId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "type": { "type": "string", "enum": ["status_change", "escalation", "resolution"] }
+      },
+      "required": ["id", "userId", "reportId", "title", "message", "read", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile document accessible by authenticated user"
+    },
+    "/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/Report" },
+      "description": "Public and user-associated civic reports"
+    },
+    "/users/{userId}/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/PushNotification" },
+      "description": "Push notification messages for a specific user"
+    }
+  }
+}

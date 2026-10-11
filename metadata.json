@@ -1,0 +1,6 @@
+{
+  "name": "FixMyCity AI",
+  "description": "Citizen-driven civic & environmental complaint intelligence with automated tracking, official escalation, and photo-verified fix audits.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
